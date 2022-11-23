@@ -6,14 +6,14 @@ import traceback
 
 pytube.request.default_range_size = 337184
 
-def download(video):
+def download(video, path):
 	try:
 		yt = YouTube(video, on_progress_callback=progress_bar)
 		yt = yt.streams.filter(progressive=True, file_extension='mp4')
 		yt = yt.order_by('resolution')
 		yt = yt.desc()
 		yt = yt.first()
-		yt = yt.download()
+		yt = yt.download(path)
 		return (1)
 	except Exception:
 		traceback.print_exc()
@@ -28,4 +28,4 @@ def progress_bar(stream, chunk, bytes_remaining):
 	return percent_downloaded
 
 # video = "https://www.youtube.com/shorts/L0DWAVbdEaM"
-# download(video)
+# download(video, "./videos")
